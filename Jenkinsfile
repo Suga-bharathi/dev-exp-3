@@ -11,7 +11,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'test -f index.html'
+                bat 'if exist index.html (exit /b 0) else (exit /b 1)'
                 echo 'HTML file exists - Test passed'
             }
         }
@@ -19,8 +19,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Preparing HTML application...'
-                sh 'mkdir -p build'
-                sh 'cp index.html build/'
+                bat 'if not exist build mkdir build'
+                bat 'copy /Y index.html build\\index.html'
             }
         }
 
